@@ -1,1 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VAMP — Blood Donation, Reimagined</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --red: #DA3232;
+      --red-light: rgba(218, 50, 50, 0.07);
+      --black: #111111;
+      --bg: #F7F6F4;
+      --surface: #FFFFFF;
+      --border: #E4E2DE;
+      --text: #111111;
+      --muted: #625f5b;
+      --muted2: #C2BFB9;
+    }
 
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+      font-weight: 300;
+      line-height: 1.65;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 3rem;
+      background: rgba(247, 246, 244, 0.9);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--red);
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--black); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 6rem;
+      position: relative;
+    }
+
+    .logo-wrap {
+      position: relative;
+      margin-bottom: 2.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-wrap::before {
+      content: '';
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(218,50,50,0.09) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .logo-placeholder {
+      width: 112px;
+      height: 112px;
+      border-radius: 22px;
+      border: 1.5px solid rgba(218, 50, 50, 0.2);
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      font-weight: 600;
+      color: rgba(218, 50, 50, 0.4);
+      text-transform: uppercase;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+
+    /* Swap with: <img src="logo.png" alt="VAMP" class="logo-img"> */
+    .logo-img {
+      width: 112px;
+      height: 112px;
+      border-radius: 22px;
+      object-fit: contain;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .hero-title {
+      font-size: clamp(5rem, 16vw, 10.5rem);
+      font-weight: 700;
+      line-height: 0.9;
+      color: var(--black);
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-title span { color: var(--red); }
+
+    .hero-sub {
+      font-size: clamp(0.95rem, 2vw, 1.08rem);
+      color: var(--black);
+      max-width: 460px;
+      margin: 0 auto 2.8rem;
+      font-weight: 600;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.8rem 1.75rem;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: #fff;
+      border: 1.5px solid var(--red);
+      box-shadow: 0 2px 14px rgba(218, 50, 50, 0.22);
+    }
+
+    .btn-primary:hover {
+      background: #c42b2b;
+      border-color: #c42b2b;
+      box-shadow: 0 4px 20px rgba(218, 50, 50, 0.32);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: var(--surface);
+      color: var(--red);
+      border: 1.5px solid rgba(218, 50, 50, 0.3);
+    }
+
+    .btn-outline:hover {
+      background: var(--red-light);
+      border-color: var(--red);
+      transform: translateY(-1px);
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 6rem 2rem;
+    }
+
+    .section-label {
+      font-size: 1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    h2 {
+      font-size: clamp(2.1rem, 5.5vw, 3.2rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+      color: var(--black);
+      margin-bottom: 1.5rem;
+    }
+
+    h2 em {
+      color: var(--red);
+      font-style: normal;
+    }
+
+    p {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+      font-weight: 300;
+    }
+
+    /* ── STAT STRIP ── */
+    .stat-strip {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin: 2.5rem 0;
+    }
+
+    .stat {
+      padding: 1.8rem 2rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .stat-num {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--red);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .stat-desc {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--black);
+    }
+
+    /* ── FEATURES ── */
+    .features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 2.5rem;
+    }
+
+    .feature {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.8rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .feature:hover {
+      border-color: rgba(218, 50, 50, 0.28);
+      box-shadow: 0 4px 18px rgba(218, 50, 50, 0.06);
+    }
+
+    .feature-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--black);
+      margin-bottom: 0.45rem;
+    }
+
+    .feature-desc {
+      font-size: 0.86rem;
+      font-weight: 300;
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* ── DIVIDER ── */
+    hr.section-rule {
+      border: none;
+      border-top: 1px solid var(--border);
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* ── FOUNDER ── */
+    .founder-block {
+      border-left: 2px solid rgba(218, 50, 50, 0.5);
+      padding-left: 1.8rem;
+      margin-top: 2rem;
+    }
+
+    .founder-block p strong {
+      color: var(--black);
+      font-weight: 600;
+    }
+
+    /* ── TEAM ── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 2.5rem;
+    }
+ 
+    .team-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+ 
+    .team-card:hover {
+      border-color: rgba(218, 50, 50, 0.28);
+      box-shadow: 0 4px 18px rgba(218, 50, 50, 0.06);
+    }
+ 
+    .team-headshot {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
+      background: var(--bg);
+    }
+ 
+    .team-headshot-placeholder {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: linear-gradient(135deg, #f0efed 0%, #e8e6e2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+ 
+    .team-headshot-placeholder svg {
+      opacity: 0.25;
+    }
+ 
+    .team-info {
+      padding: 1.1rem 1.2rem 1.2rem;
+      border-top: 1px solid var(--border);
+    }
+ 
+    .team-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 0.2rem;
+    }
+ 
+    .team-title {
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      padding: 2.5rem 2rem;
+      max-width: 100%;
+    }
+
+    .footer-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer-brand {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--red);
+      text-transform: uppercase;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--red); }
+
+    .footer-copy {
+      width: 100%;
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: var(--muted2);
+    }
+
+    /* ── SCROLL ANIMATION ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .features { grid-template-columns: 1fr; }
+      .stat-strip { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">VAMP</span>
+    <ul class="nav-links">
+      <li><a href="#problem">The Problem</a></li>
+      <li><a href="#solution">Solution</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="logo-wrap">
+      <img src="logo.png" alt="VAMP" class="logo-img">
+    </div>
+
+    <h1 class="hero-title"><span>VAMP</span></h1>
+    <p class="hero-sub">Making Blood Donation Simple, Social, and Rewarding.<br>Built by Students, For Students.</p>
+
+    <div class="cta-group">
+      <a href="https://testflight.apple.com/join/pDCFCrXQ" class="btn btn-primary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Test App on iOS
+      </a>
+      <a href="#" class="btn btn-outline">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0001.5511-.4482.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4483.9997-.9993.9997m11.4068-6.6003l1.9976-3.4604a.416.416 0 00-.1521-.5676.416.416 0 00-.5676.1521l-2.0223 3.503C15.5902 7.6099 13.8543 7.1858 12 7.1858c-1.8543 0-3.5902.4241-5.1367 1.1694L4.841 4.8528a.4157.4157 0 00-.5677-.1521.4157.4157 0 00-.1521.5676l1.9976 3.4604C2.9153 10.0293 1.2676 12.7483 1 16h22c-.2676-3.2517-1.9153-5.9707-5.116-7.259"/></svg>
+        Android — Join Waitlist
+      </a>
+    </div>
+  </div>
+
+  <!-- THE PROBLEM -->
+  <hr class="section-rule" />
+  <section id="problem">
+    <div class="section-label reveal">The Problem</div>
+    <h2 class="reveal">Demand is predictable.<br><em>Supply is not.</em><br>This gap costs lives.</h2>
+
+    <div class="stat-strip reveal">
+      <div class="stat">
+        <span class="stat-num">Every 2s</span>
+        <span class="stat-desc">Someone in the U.S. needs blood.</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">3 Lives</span>
+        <span class="stat-desc">One donation can save up to three.</span>
+      </div>
+    </div>
+
+    <p class="reveal">Yet hospitals are facing critical shortages because the current donation system is broken—drives are hard to find, donating is inconvenient, and it's easy to lose motivation. Students want to help, but outdated processes stand in the way of action.</p>
+  </section>
+
+  <!-- OUR SOLUTION -->
+  <hr class="section-rule" />
+  <section id="solution">
+    <div class="section-label reveal">Our Solution</div>
+    <h2 class="reveal">VAMP meets students where they<br>spend their time: <em>their phones.</em></h2>
+
+    <p class="reveal">By transforming blood donation into a seamless one-tap decision, VAMP combines several innovative features:</p>
+
+    <div class="features reveal">
+      <div class="feature">
+        <div class="feature-title">Drive Discovery &amp; Reminders</div>
+        <p class="feature-desc">Easily find and get notified about nearby blood drives in your area.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-title">Impact Tracking</div>
+        <p class="feature-desc">Monitor milestones and progress. Hear the real stories of those you saved.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-title">Rewards with Local Partners</div>
+        <p class="feature-desc">Earn rewards from local businesses for your generosity and commitment.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-title">Social Motivation</div>
+        <p class="feature-desc">Group donations, leaderboards, and challenges to keep you engaged.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <hr class="section-rule" />
+  <section id="about">
+    <div class="section-label reveal">Everyone Can Save a Life</div>
+    <h2 class="reveal">Students are the <em>most powerful</em><br>untapped force in donation.</h2>
+
+    <p class="reveal">Students are the healthiest, most social, and most responsive demographic. Only around <strong style="color:var(--black);font-weight:600;">3%</strong> of the eligible U.S. population donates blood each year. Students can change this.</p>
+
+    <div class="founder-block reveal">
+      <p>Our founder, <strong>Ahlay Hussain</strong>, recognized the need for greater engagement in blood donation and, being a college-aged student, recognized the potential in assembling student populations across the country. Enter VAMP—an app dedicated to making blood donation easy, social, and rewarding for students anywhere.</p>
+      <p>Started in the nation's capital, <strong>Washington, D.C.</strong>, VAMP is looking to expand into other cities and universities across the country to reach a broader student population. <strong style="color:var(--red);">You can make that happen.</strong></p>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <hr class="section-rule" />
+  <section id="team">
+    <div class="section-label reveal">The Team</div>
+    <h2 class="reveal">Students who <em>believe</em><br>in the mission.</h2>
+ 
+    <div class="team-grid reveal">
+ 
+      <div class="team-card">
+        <!-- Replace with: <img src="headshot.jpg" alt="Name" class="team-headshot"> -->
+        <div class="team-headshot-placeholder">
+          <img src="ahlay.png" alt="Person Name" class="team-headshot">
+        </div>
+        <div class="team-info">
+          <div class="team-name">Ahlay Hussain</div>
+          <div class="team-title">Founder</div>
+        </div>
+      </div>
+ 
+      <div class="team-card">
+        <div class="team-headshot-placeholder">
+          <img src="faysal.jpeg" alt="Person Name" class="team-headshot">
+        </div>
+        <div class="team-info">
+          <div class="team-name">Faysal Alameddine</div>
+          <div class="team-title">Vice President of Operations</div>
+        </div>
+      </div>
+ 
+      <div class="team-card">
+        <div class="team-headshot-placeholder">
+          <img src="cait.jpeg" alt="Person Name" class="team-headshot">
+        </div>
+        <div class="team-info">
+          <div class="team-name">Cait Donohue</div>
+          <div class="team-title">Director of Partnerships</div>
+        </div>
+      </div>
+ 
+      <div class="team-card">
+        <div class="team-headshot-placeholder">
+          <img src="will.jpeg" alt="Person Name" class="team-headshot">
+        </div>
+        <div class="team-info">
+          <div class="team-name">Will Moles</div>
+          <div class="team-title">Founding Engineer</div>
+        </div>
+      </div>
+ 
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <hr class="section-rule" />
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">VAMP</span>
+
+      <div class="footer-links">
+        <a href="mailto:vamp.georgetown@gmail.com">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+          vamp.georgetown@gmail.com
+        </a>
+        <a href="https://www.instagram.com/vamp.official_?igsh=MTVhZDJpcGZscjAwYQ==" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          Instagram
+        </a>
+        <a href="https://www.linkedin.com/company/vampgeorgetown?trk=public_profile_topcard-current-company" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+      </div>
+
+      <span class="footer-copy">© 2025 VAMP. Built by Students, For Students.</span>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
