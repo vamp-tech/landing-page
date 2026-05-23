@@ -130,7 +130,15 @@ nav {
 }
 
 .hero-title {
-  height: 230px;
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    max-width: 280px;
+  }
 }
 
 .hero-sub {
