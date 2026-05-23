@@ -251,10 +251,12 @@
 
     setInterval(() => {
       // Snap up + swap image
+      logo.classList.add('jumped');
       logo.src = 'images/logo_jump.png';
 
       setTimeout(() => {
         // Snap down + swap back
+        logo.classList.remove('jumped');
         logo.src = 'images/logo.png';
       }, 500);
     }, 2000);
