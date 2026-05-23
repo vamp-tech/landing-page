@@ -5,521 +5,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta property="og:image" content="images/logo.png">
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
   <title>VAMP: Save Lives Today</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <style>
-    :root {
-      --red: #DA3232;
-      --red-light: rgba(218, 50, 50, 0.07);
-      --black: #111111;
-      --bg: #F7F6F4;
-      --surface: #FFFFFF;
-      --border: #da323251;
-      --text: #111111;
-      --muted: #625f5b;
-      --muted2: #C2BFB9;
-    }
-
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background: linear-gradient(180deg, #ffffff 0%, rgba(218, 50, 50, 0.05) 100%);
-      background-attachment: fixed;
-      background-size: 100% 200%;
-      background-position: 0% 0%;
-      animation: gradientDrift 6s ease-in-out infinite;
-      color: var(--text);
-      font-family: -apple-system, 'Helvetica Neue', sans-serif;
-      font-weight: 400;
-      line-height: 1.65;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    @keyframes gradientDrift {
-      0% {
-        background-position: 0% 0%;
-      }
-
-      50% {
-        background-position: 0% 100%;
-      }
-
-      100% {
-        background-position: 0% 0%;
-      }
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.1rem 3rem;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-logo {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--red);
-      text-transform: uppercase;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2.2rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.78rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover {
-      color: var(--black);
-    }
-
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 8rem 2rem 6rem;
-      position: relative;
-    }
-
-    .logo-wrap {
-      position: relative;
-      margin-bottom: 2.8rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .logo-wrap::before {
-      content: '';
-      position: absolute;
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .logo-placeholder {
-      width: 112px;
-      height: 112px;
-      border-radius: 22px;
-      border: 1.5px solid rgba(218, 50, 50, 0.2);
-      background: var(--surface);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.6rem;
-      font-weight: 600;
-      color: rgba(218, 50, 50, 0.4);
-      text-transform: uppercase;
-      box-shadow: 0 2px 14px rgba(218, 50, 50, 0.22);
-    }
-
-    .logo-img {
-      width: 112px;
-      height: 112px;
-      border-radius: 22px;
-      object-fit: contain;
-      box-shadow: 0 2px 14px rgba(218, 50, 50, 0.1);
-    }
-
-    .hero-title {
-      font-size: clamp(5rem, 16vw, 10.5rem);
-      font-weight: 700;
-      line-height: 0.9;
-      color: var(--black);
-      margin-bottom: 1.4rem;
-    }
-
-    .hero-title span {
-      color: var(--red);
-    }
-
-    .hero-sub {
-      font-size: clamp(0.95rem, 2vw, 1.08rem);
-      color: var(--black);
-      max-width: 460px;
-      margin: 0 auto 2.8rem;
-      font-weight: 500;
-    }
-
-    .cta-group {
-      display: flex;
-      gap: 0.85rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.8rem 1.75rem;
-      border-radius: 8px;
-      font-family: inherit;
-      font-size: 0.8rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      text-decoration: none;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .btn-primary {
-      background: var(--red);
-      color: #fff;
-      border: 1.5px solid var(--red);
-      box-shadow: 0 2px 14px rgba(218, 50, 50, 0.22);
-    }
-
-    .btn-primary:hover {
-      background: var(--red);
-      border-color: var(--red);
-      box-shadow: 0 4px 20px rgba(218, 50, 50, 0.32);
-      transform: translateY(-1px);
-    }
-
-    .btn-outline {
-      background: var(--surface);
-      color: var(--red);
-      border: 1.5px solid rgba(218, 50, 50, 0.3);
-    }
-
-    .btn-outline:hover {
-      background: var(--red-light);
-      border-color: var(--red);
-      transform: translateY(-1px);
-    }
-
-    /* ── SECTIONS ── */
-    section {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 6rem 2rem;
-    }
-
-    .section-label {
-      font-size: 1rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 1.1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    h2 {
-      font-size: clamp(2.1rem, 5.5vw, 3.2rem);
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      line-height: 1.1;
-      color: var(--black);
-      margin-bottom: 1.5rem;
-    }
-
-    h2 em {
-      color: var(--red);
-      font-style: normal;
-    }
-
-    p {
-      font-size: 1rem;
-      color: var(--muted);
-      margin-bottom: 1.2rem;
-      font-weight: 400;
-    }
-
-    /* ── STAT STRIP ── */
-    .stat-strip {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin: 2.5rem 0;
-    }
-
-    .stat {
-      padding: 1.8rem 2rem;
-      background: var(--surface);
-      border: 1.5px solid transparent;
-      border-radius: 12px;
-      box-shadow: 0 4px 18px rgba(218, 50, 50, 0.06);
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      transition: border-color 0.2s, transform 0.2s ease;
-    }
-
-    .stat:hover {
-      border-color: rgba(218, 50, 50, 0.28);
-      transform: translateY(-2px);
-    }
-
-    .stat-num {
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--red);
-      line-height: 1;
-      letter-spacing: -0.02em;
-    }
-
-    .stat-desc {
-      font-size: 1.2rem;
-      font-weight: 500;
-      color: var(--black);
-    }
-
-    /* ── FEATURES ── */
-    .features {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 2.5rem;
-    }
-
-    .feature {
-      background: var(--surface);
-      border: 1.5px solid transparent;
-      border-radius: 12px;
-      padding: 1.8rem;
-      box-shadow: 0 4px 18px rgba(218, 50, 50, 0.06);
-      transition: border-color 0.2s, transform 0.2s ease;
-    }
-
-    .feature:hover {
-      border-color: rgba(218, 50, 50, 0.28);
-      transform: translateY(-2px);
-
-    }
-
-    .feature-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: var(--black);
-      margin-bottom: 0.45rem;
-    }
-
-    .feature-desc {
-      font-size: 0.86rem;
-      font-weight: 300;
-      color: var(--muted);
-      margin: 0;
-      line-height: 1.6;
-    }
-
-    /* ── DIVIDER ── */
-    hr.section-rule {
-      border: none;
-      border-top: 1px solid var(--border);
-      max-width: 860px;
-      margin: 0 auto;
-    }
-
-    /* ── FOUNDER ── */
-    .founder-block {
-      border-left: 2px solid rgba(218, 50, 50, 0.5);
-      padding-left: 1.8rem;
-      margin-top: 2rem;
-    }
-
-    .founder-block p strong {
-      color: var(--black);
-      font-weight: 600;
-    }
-
-    /* ── TEAM ── */
-    .team-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-top: 2.5rem;
-    }
-
-    .team-card {
-      background: var(--surface);
-      border: 1.5px solid transparent;
-      border-radius: 12px;
-      box-shadow: 0 4px 18px rgba(218, 50, 50, 0.06);
-      overflow: hidden;
-      transition: border-color 0.2s, transform 0.2s ease;
-    }
-
-    .team-card:hover {
-      border-color: rgba(218, 50, 50, 0.28);
-      transform: translateY(-2px);
-    }
-
-    .team-headshot {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      display: block;
-      background: var(--bg);
-    }
-
-    .team-headshot-placeholder {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      background: linear-gradient(135deg, #f0efed 0%, #e8e6e2 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .team-headshot-placeholder svg {
-      opacity: 0.25;
-    }
-
-    .team-info {
-      padding: 1.1rem 1.2rem 1.2rem;
-      border-top: 1px solid var(--border);
-    }
-
-    .team-name {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--black);
-      margin-bottom: 0.2rem;
-    }
-
-    .team-title {
-      font-size: 0.78rem;
-      font-weight: 400;
-      color: var(--muted);
-      line-height: 1.4;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--border);
-      background: var(--surface);
-      padding: 2.5rem 2rem;
-      max-width: 100%;
-    }
-
-    .footer-inner {
-      max-width: 860px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-    }
-
-    .footer-brand {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--red);
-      text-transform: uppercase;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 1.5rem;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .footer-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.82rem;
-      font-weight: 400;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: color 0.2s;
-    }
-
-    .footer-links a:hover {
-      color: var(--red);
-    }
-
-    .footer-copy {
-      width: 100%;
-      font-size: 0.72rem;
-      font-weight: 400;
-      color: var(--muted2);
-    }
-
-    /* ── SCROLL ANIMATION ── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 640px) {
-      nav {
-        padding: 1rem 1.5rem;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
-      .features {
-        grid-template-columns: 1fr;
-      }
-
-      .stat-strip {
-        grid-template-columns: 1fr;
-      }
-
-      .footer-inner {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
 
   <!-- NAV -->
   <nav>
-    <span class="nav-logo">VAMP</span>
+    <img src="images/logo1.png" alt="VAMP" class="nav-logo">
     <ul class="nav-links">
       <li><a href="#problem">The Problem</a></li>
       <li><a href="#solution">Solution</a></li>
@@ -530,10 +27,10 @@
   <!-- HERO -->
   <div class="hero">
     <div class="logo-wrap">
-      <img src="images/logo.png" alt="VAMP" class="logo-img">
+      <img src="images/logo.png" alt="VAMP" class="logo-img" id="jumpingLogo">
     </div>
 
-    <h1 class="hero-title"><span>VAMP</span></h1>
+    <img src="images/logo1.png" alt="VAMP" class="hero-title">
     <p class="hero-sub">Making Blood Donation Simple, Social, and Rewarding.<br>Built by Students, For Students.</p>
 
     <div class="cta-group">
@@ -561,14 +58,28 @@
     <div class="section-label reveal">The Problem</div>
     <h2 class="reveal">Demand is predictable.<br><em>Supply is not.</em><br>This gap costs lives.</h2>
 
-    <div class="stat-strip reveal">
-      <div class="stat">
-        <span class="stat-num">Every 2s</span>
-        <span class="stat-desc">Someone in the U.S. needs blood.</span>
+    <div class="stat-grid reveal">
+      <svg class="stat-connectors" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+        <line x1="11%" y1="195px" x2="36%" y2="70px" />
+        <line x1="36%" y1="70px" x2="61%" y2="120px" />
+        <line x1="61%" y1="120px" x2="86%" y2="30px" />
+      </svg>
+
+      <div class="stat" style="bottom: 0px; left: 0%;">
+        <span class="stat-num">#1</span>
+        <span class="stat-desc">In the U.S., about every 2 seconds someone needs blood.</span>
       </div>
-      <div class="stat">
-        <span class="stat-num">3 Lives</span>
-        <span class="stat-desc">One donation can save up to three.</span>
+      <div class="stat" style="bottom: 90px; left: 25%;">
+        <span class="stat-num">#2</span>
+        <span class="stat-desc">One blood donation can save up to 3 lives.</span>
+      </div>
+      <div class="stat" style="bottom: 45px; left: 50%;">
+        <span class="stat-num">#3</span>
+        <span class="stat-desc">Only 3% of eligible donors donate blood yearly.</span>
+      </div>
+      <div class="stat" style="bottom: 135px; left: 75%;">
+        <span class="stat-num">#4</span>
+        <span class="stat-desc">Blood cannot be manufactured — it must come from donors.</span>
       </div>
     </div>
 
@@ -586,23 +97,39 @@
     <p class="reveal">By transforming blood donation into a seamless one-tap decision, VAMP combines several innovative
       features:</p>
 
-    <div class="features reveal">
-      <div class="feature">
-        <div class="feature-title">Drive Discovery &amp; Reminders</div>
-        <p class="feature-desc">Easily find and get notified about nearby blood drives in your area.</p>
+    <div class="features-container reveal">
+      <div class="features">
+        <div class="feature">
+          <span class="feature-num">#1</span>
+          <div style="flex-direction: column;">
+            <div class="feature-title">Drive Discovery &amp; Reminders</div>
+            <p class="feature-desc">Easily find and get notified about nearby blood drives in your area.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <span class="feature-num">#2</span>
+          <div style="flex-direction: column;">
+            <div class="feature-title">Impact Tracking</div>
+            <p class="feature-desc">Monitor milestones and progress. Hear the real stories of those you saved.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <span class="feature-num">#3</span>
+          <div style="flex-direction: column;">
+            <div class="feature-title">Rewards with Local Partners</div>
+            <p class="feature-desc">Earn rewards from local businesses for your generosity and commitment.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <span class="feature-num">#4</span>
+          <div style="flex-direction: column;">
+            <div class="feature-title">Social Motivation</div>
+            <p class="feature-desc">Group donations, leaderboards, and challenges to keep you engaged.</p>
+          </div>
+        </div>
       </div>
-      <div class="feature">
-        <div class="feature-title">Impact Tracking</div>
-        <p class="feature-desc">Monitor milestones and progress. Hear the real stories of those you saved.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-title">Rewards with Local Partners</div>
-        <p class="feature-desc">Earn rewards from local businesses for your generosity and commitment.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-title">Social Motivation</div>
-        <p class="feature-desc">Group donations, leaderboards, and challenges to keep you engaged.</p>
-      </div>
+
+      <img src="images/mockup.png" alt="App Mockup" class="mockup reveal" />
     </div>
   </section>
 
@@ -612,11 +139,10 @@
     <div class="section-label reveal">Everyone Can Save a Life</div>
     <h2 class="reveal">Students are the <em>most powerful</em><br>untapped force in donation.</h2>
 
-    <p class="reveal">Students are the healthiest, most social, and most responsive demographic. Only around <strong
-        style="color:var(--black);font-weight:600;">3%</strong> of the eligible U.S. population donates blood each year.
-      Students can change this.</p>
-
     <div class="founder-block reveal">
+      <p>Students are the healthiest, most social, and most responsive demographic. Only
+        around <strong>3%</strong> of the eligible U.S. population donates blood each year.
+        Students can change this.</p>
       <p>Our founder, <strong>Ahlay Hussain</strong>, recognized the need for greater engagement in blood donation and,
         being a college-aged student, recognized the potential in assembling student populations across the country.
         Enter VAMP—an app dedicated to making blood donation easy, social, and rewarding for students anywhere.</p>
@@ -635,9 +161,8 @@
     <div class="team-grid reveal">
 
       <div class="team-card">
-        <!-- Replace with: <img src="headshot.jpg" alt="Name" class="team-headshot"> -->
         <div class="team-headshot-placeholder">
-          <img src="images/ahlay.png" alt="Person Name" class="team-headshot">
+          <img src="images/ahlay.png" alt="Ahlay Hussain" class="team-headshot">
         </div>
         <div class="team-info">
           <div class="team-name">Ahlay Hussain</div>
@@ -647,31 +172,31 @@
 
       <div class="team-card">
         <div class="team-headshot-placeholder">
-          <img src="images/faysal.jpeg" alt="Person Name" class="team-headshot">
+          <img src="images/faysal.jpeg" alt="Faysal Alameddine" class="team-headshot">
         </div>
         <div class="team-info">
           <div class="team-name">Faysal Alameddine</div>
-          <div class="team-title">VP of Operations</div>
+          <div class="team-title">Vice President</div>
         </div>
       </div>
 
       <div class="team-card">
         <div class="team-headshot-placeholder">
-          <img src="images/cait.jpeg" alt="Person Name" class="team-headshot">
+          <img src="images/cait.png" alt="Cait Donohue" class="team-headshot">
         </div>
         <div class="team-info">
           <div class="team-name">Cait Donohue</div>
-          <div class="team-title">Director of Partnerships</div>
+          <div class="team-title">Partnerships</div>
         </div>
       </div>
 
       <div class="team-card">
         <div class="team-headshot-placeholder">
-          <img src="images/will.jpeg" alt="Person Name" class="team-headshot">
+          <img src="images/will.jpeg" alt="Will Moles" class="team-headshot">
         </div>
         <div class="team-info">
           <div class="team-name">Will Moles</div>
-          <div class="team-title">Founding Engineer</div>
+          <div class="team-title">Tech</div>
         </div>
       </div>
 
@@ -681,7 +206,7 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
-      <span class="footer-brand">VAMP</span>
+      <img src="images/logo1.png" alt="VAMP" class="footer-brand" />
 
       <div class="footer-links">
         <a href="mailto:vamp.georgetown@gmail.com">
@@ -719,6 +244,20 @@
       { threshold: 0.1 }
     );
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+  <script>
+    const logo = document.getElementById('jumpingLogo');
+
+    setInterval(() => {
+      // Snap up + swap image
+      logo.src = 'images/logo_jump.png';
+
+      setTimeout(() => {
+        // Snap down + swap back
+        logo.src = 'images/logo.png';
+      }, 500);
+    }, 2000);
   </script>
 </body>
 
