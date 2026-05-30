@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta property="og:image" content="images/logo.png">
   <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-  <title>VAMP: Save Lives Today</title>
+  <title>VAMP</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="styles.css" />
@@ -83,7 +83,7 @@
       </div>
     </div>
 
-    <p class="reveal">Yet hospitals are facing critical shortages because the current donation system is broken—drives
+    <p class="reveal">Yet hospitals are facing critical shortages because the current donation system is broken. Drives
       are hard to find, donating is inconvenient, and it's easy to lose motivation. Students want to help, but outdated
       processes stand in the way of action.</p>
   </section>
@@ -99,28 +99,28 @@
 
     <div class="features-container reveal">
       <div class="features">
-        <div class="feature">
+        <div class="feature" data-screenshot="images/ss1.png">
           <span class="feature-num">#1</span>
           <div style="flex-direction: column;">
             <div class="feature-title">Drive Discovery &amp; Reminders</div>
             <p class="feature-desc">Easily find and get notified about nearby blood drives in your area.</p>
           </div>
         </div>
-        <div class="feature">
+        <div class="feature" data-screenshot="images/ss2.png">
           <span class="feature-num">#2</span>
           <div style="flex-direction: column;">
             <div class="feature-title">Impact Tracking</div>
             <p class="feature-desc">Monitor milestones and progress. Hear the real stories of those you saved.</p>
           </div>
         </div>
-        <div class="feature">
+        <div class="feature" data-screenshot="images/ss3.png">
           <span class="feature-num">#3</span>
           <div style="flex-direction: column;">
             <div class="feature-title">Rewards with Local Partners</div>
             <p class="feature-desc">Earn rewards from local businesses for your generosity and commitment.</p>
           </div>
         </div>
-        <div class="feature">
+        <div class="feature" data-screenshot="images/ss4.png">
           <span class="feature-num">#4</span>
           <div style="flex-direction: column;">
             <div class="feature-title">Social Motivation</div>
@@ -129,7 +129,10 @@
         </div>
       </div>
 
-      <img src="images/mockup.png" alt="App Mockup" class="mockup reveal" />
+      <div class="mockup-wrapper">
+        <img src="images/mockup.png" alt="App Mockup" class="mockup reveal mockup-img mockup-img--active" />
+        <img src="" alt="App Screenshot" class="mockup mockup-img mockup-img--hover" style="margin-left: 2rem;" />
+      </div>
     </div>
   </section>
 
@@ -145,7 +148,7 @@
         Students can change this.</p>
       <p>Our founder, <strong>Ahlay Hussain</strong>, recognized the need for greater engagement in blood donation and,
         being a college-aged student, recognized the potential in assembling student populations across the country.
-        Enter VAMP—an app dedicated to making blood donation easy, social, and rewarding for students anywhere.</p>
+        Enter VAMP, an app dedicated to making blood donation easy, social, and rewarding for students anywhere.</p>
       <p>Started in the nation's capital, <strong>Washington, D.C.</strong>, VAMP is looking to expand into other cities
         and universities across the country to reach a broader student population. <strong style="color:var(--red);">You
           can make that happen.</strong></p>
@@ -260,6 +263,33 @@
         logo.src = 'images/logo.png';
       }, 500);
     }, 2000);
+  </script>
+
+  <script>
+    const features = document.querySelectorAll('.feature[data-screenshot]');
+    const baseImg = document.querySelector('.mockup-img--active');
+    const hoverImg = document.querySelector('.mockup-img--hover');
+
+    features.forEach(feature => {
+      feature.addEventListener('mouseenter', () => {
+        const src = feature.dataset.screenshot;
+        hoverImg.src = src;
+        hoverImg.onload = () => {
+          baseImg.style.opacity = '0';
+          hoverImg.style.opacity = '1';
+        };
+        // If already cached, onload may not fire — handle that:
+        if (hoverImg.complete && hoverImg.naturalWidth > 0) {
+          baseImg.style.opacity = '0';
+          hoverImg.style.opacity = '1';
+        }
+      });
+
+      feature.addEventListener('mouseleave', () => {
+        baseImg.style.opacity = '1';
+        hoverImg.style.opacity = '0';
+      });
+    });
   </script>
 </body>
 

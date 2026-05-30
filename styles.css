@@ -325,11 +325,6 @@ p {
   align-items: center;
 }
 
-.mockup {
-  height: 600px;
-  margin: -1rem auto;
-}
-
 .features {
   display: flex;
   flex-direction: column;
@@ -378,6 +373,35 @@ p {
     flex-direction: column;
     margin: 1rem auto;
   }
+}
+
+.mockup-wrapper {
+  position: relative;
+  height: 600px;
+  flex-shrink: 0;
+}
+
+.mockup {
+  height: 600px;
+  margin: 0 auto;
+}
+
+.mockup-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: auto;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.mockup-img--active {
+  opacity: 1;
+}
+
+.mockup-img--hover {
+  opacity: 0;
 }
 
 /* ── DIVIDER ── */
